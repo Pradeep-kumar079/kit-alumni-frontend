@@ -53,6 +53,7 @@ const Register = () => {
       else alert(res.data.message || "Failed to send OTP.");
     } catch (err) {
       console.error(err);
+      console.log(err);
       alert("Error: " + (err.response?.data?.message || err.message));
     }
   };
