@@ -45,19 +45,22 @@ const Register = () => {
     }
   };
 
-  const handleSendOtp = async () => {
+ const handleSendOtp = async () => {
     if (!formData.email) return alert("Please enter an email first.");
     try {
       const res = await API.post("/user/send-otp", { email: formData.email });
-      if (res.data.success) alert("OTP sent to your email!");
-      else alert(res.data.message || "Failed to send OTP.");
+
+      if (res.data.success) {
+        alert("✅ OTP sent successfully to your email!");
+      } else {
+        alert(res.data.message || "Failed to send OTP.");
+      }
     } catch (err) {
-      console.error(err);
-      console.log(err);
+      console.error("❌ Send OTP Error:", err.response?.data || err.message);
       alert("Error: " + (err.response?.data?.message || err.message));
     }
   };
-
+  
   const handleVerifyOtp = async () => {
     try {
       const res = await API.post("/user/verify-otp", {
