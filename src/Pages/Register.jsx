@@ -49,7 +49,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
   const handleSendOtp = async () => {
     if (!formData.email) return alert("Please enter an email first.");
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/user/send-otp`, { email: formData.email });
+      const res = await axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/send-otp`, { email: formData.email });
       if (res.data.success) alert("OTP sent to your email!");
       else alert(res.data.message || "Failed to send OTP.");
     } catch (err) {
@@ -60,7 +60,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
 
   const handleVerifyOtp = async () => {
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/user/verify-otp`, {
+      const res = await axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/verify-otp`, {
         email: formData.email,
         otp: formData.otp,
       });
@@ -82,7 +82,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
 
     try {
       const finalData = { ...formData, admissionyear: parseInt(formData.admissionyear) };
-      const res = await  axios.post(`${BACKEND_URL}/api/user/register`, finalData);
+      const res = await  axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/register`, finalData);
       if (res.data.success) {
         alert(`Registration successful as ${formData.role.toUpperCase()}!`);
         navigate("/login");
