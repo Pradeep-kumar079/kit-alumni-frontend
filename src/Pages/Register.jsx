@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Register.css";
+import API from "../api"
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
- const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-backend.onrender.com";
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -81,7 +82,7 @@ const Register = () => {
 
     try {
       const finalData = { ...formData, admissionyear: parseInt(formData.admissionyear) };
-      const res = await axios.post(`${BACKEND_URL}/api/user/register`, finalData);
+      const res = await  axios.post(`${BACKEND_URL}/api/user/register`, finalData);
       if (res.data.success) {
         alert(`Registration successful as ${formData.role.toUpperCase()}!`);
         navigate("/login");

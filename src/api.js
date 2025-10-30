@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://kit-alumni-backend.onrender.com/api",
-  withCredentials: true,
+  baseURL: process.env.REACT_APP_BACKEND_URL,
+  withCredentials: false,
 });
 
 export default API;
