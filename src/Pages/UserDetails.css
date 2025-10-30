@@ -1,0 +1,152 @@
+.userdetails-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+/* ✅ User Card */
+.user-card {
+  flex: 1;
+  max-width: 100%;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.user-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-name {
+  margin-top: 10px;
+  font-size: 1.3rem;
+  color: #222;
+}
+
+.user-email,
+.user-usn,
+.user-role {
+  color: #555;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+
+/* ✅ Connections Section */
+.connections-section {
+  flex: 2;
+  background: #f9f9f9;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.connections-title {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.connections-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.connection-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.connection-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Avatar with online/offline dot */
+.connection-avatar {
+  position: relative;
+  margin-right: 10px;
+}
+
+.connection-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.status-dot {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.status-dot.online {
+  background-color: #4caf50;
+}
+
+.status-dot.offline {
+  background-color: #ccc;
+}
+
+/* ✅ Connection Info */
+.connection-info h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #222;
+}
+
+.connection-info p {
+  margin: 3px 0 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 900px) {
+  .userdetails-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-card,
+  .connections-section {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .connections-cards {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 500px) {
+  .connection-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .connection-avatar {
+    margin-bottom: 8px;
+  }
+}
