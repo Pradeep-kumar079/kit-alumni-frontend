@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./Register.css";
-import API from "../api"
+import API from "../api";
 import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-backend.onrender.com";
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [otpVerified, setOtpVerified] = useState(false);
@@ -49,7 +48,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
   const handleSendOtp = async () => {
     if (!formData.email) return alert("Please enter an email first.");
     try {
-      const res = await axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/send-otp`, { email: formData.email });
+      const res = await API.post("/user/send-otp", { email: formData.email });
       if (res.data.success) alert("OTP sent to your email!");
       else alert(res.data.message || "Failed to send OTP.");
     } catch (err) {
@@ -60,7 +59,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
 
   const handleVerifyOtp = async () => {
     try {
-      const res = await axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/verify-otp`, {
+      const res = await API.post("/user/verify-otp", {
         email: formData.email,
         otp: formData.otp,
       });
@@ -82,7 +81,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
 
     try {
       const finalData = { ...formData, admissionyear: parseInt(formData.admissionyear) };
-      const res = await  axios.post(`https://alumni-backend-bz8e.onrender.com/api/user/register`, finalData);
+      const res = await API.post("/user/register", finalData);
       if (res.data.success) {
         alert(`Registration successful as ${formData.role.toUpperCase()}!`);
         navigate("/login");
@@ -110,18 +109,38 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
             <div className="form-group">
               <label>Email</label>
               <div className="input-group">
-                <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter your email" required />
-                <button type="button" className="btn primarys" onClick={handleSendOtp}>Send OTP</button>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  required
+                />
+                <button type="button" className="btn primarys" onClick={handleSendOtp}>
+                  Send OTP
+                </button>
               </div>
             </div>
             <div className="form-group">
               <label>Enter OTP</label>
-              <input type="text" name="otp" value={formData.otp} onChange={handleChange} placeholder="Enter OTP" required />
+              <input
+                type="text"
+                name="otp"
+                value={formData.otp}
+                onChange={handleChange}
+                placeholder="Enter OTP"
+                required
+              />
             </div>
             <div className="actions">
-              <button type="button" className="btn success" onClick={handleVerifyOtp}>Verify OTP</button>
+              <button type="button" className="btn success" onClick={handleVerifyOtp}>
+                Verify OTP
+              </button>
               <h3>OR</h3>
-              <button className="btn success"><Link to={"/login"}>Login</Link></button>
+              <button className="btn success">
+                <Link to={"/login"}>Login</Link>
+              </button>
             </div>
           </div>
         )}
@@ -154,7 +173,14 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
               </div>
               <div className="form-group">
                 <label>Admission Year</label>
-                <input type="text" name="admissionyear" value={formData.admissionyear} onChange={handleChange} placeholder="Enter year" required />
+                <input
+                  type="text"
+                  name="admissionyear"
+                  value={formData.admissionyear}
+                  onChange={handleChange}
+                  placeholder="Enter year"
+                  required
+                />
               </div>
               <div className="form-group checkbox">
                 <label>
@@ -173,8 +199,12 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
             </div>
             <div className="actions">
               <div className="two-reg-btns">
-                <button type="button" className="btn secondary"  id="reg-btns" onClick={() => setStep(1)}>Back</button>
-              <button type="button" className="btn primary" id="reg-btns" onClick={() => setStep(3)}>Next</button>
+                <button type="button" className="btn secondary" id="reg-btns" onClick={() => setStep(1)}>
+                  Back
+                </button>
+                <button type="button" className="btn primary" id="reg-btns" onClick={() => setStep(3)}>
+                  Next
+                </button>
               </div>
             </div>
           </div>
@@ -188,7 +218,14 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
               <div className="grid">
                 <div className="form-group">
                   <label>USN</label>
-                  <input type="text" name="usn" value={formData.usn.toUpperCase()} onChange={handleChange} placeholder="USN" required />
+                  <input
+                    type="text"
+                    name="usn"
+                    value={formData.usn.toUpperCase()}
+                    onChange={handleChange}
+                    placeholder="USN"
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Mobile No</label>
@@ -200,14 +237,23 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://kit-alumni-bac
                 </div>
                 <div className="form-group checkbox">
                   <label>
-                    <input type="checkbox" name="termsAccepted" checked={formData.termsAccepted} onChange={handleChange} />
+                    <input
+                      type="checkbox"
+                      name="termsAccepted"
+                      checked={formData.termsAccepted}
+                      onChange={handleChange}
+                    />
                     I agree to the terms and conditions
                   </label>
                 </div>
               </div>
               <div className="actions">
-                <button type="button" className="btn secondary" id="reg-btns" onClick={() => setStep(2)}>Back</button>
-                <button type="submit" className="btn primary" id="reg-btns" >Register</button>
+                <button type="button" className="btn secondary" id="reg-btns" onClick={() => setStep(2)}>
+                  Back
+                </button>
+                <button type="submit" className="btn primary" id="reg-btns">
+                  Register
+                </button>
               </div>
             </form>
           </div>
